@@ -30,6 +30,8 @@ Below are the key points that we will use to proceed with the investigation
 
 The tool we will use for our hunt is the Elastic SIEM which is used for threat hunting, data analytics and endpoint security which can help SOC analysts, Threat hunters Identify, Investigate and respond to threats across cloud, endpoint and on-premises environments
 
+![image](Evidence/image.png)
+
 ---
 
 ### 1 - High-volume connection pattern analysis in UFW logs
@@ -39,6 +41,8 @@ UFW Firewall is an interface for `iptables` designed to make configuration strai
 ```
 logtype: ufw
 ```
+![image](Evidence/image1.png)
+
 
 UFW logs give us details on Destination ports, IP addresses, connection attempts and packet characteristics which will help us in our investigation.
 
@@ -58,6 +62,8 @@ DOS attacks often begins by port scanning and by this we will us the query below
 ```
 logtype: ufw AND message: "UFW BLOCK"
 ```
+![image](Evidence/image2.png)
+
 
 Looking at the time we can see they are short periods of blocks by the UFW Firewall a clear indication of port scanning activity
 
@@ -77,6 +83,8 @@ Denial of Service attacks often include authentication attempts to overwhelm the
 ```
 logtype: auth AND (message: "Invalid user" OR message: "authentication failure")
 ```
+![image](Evidence/image3.png)
+
 
 As seen multiple invalid user login attempts and authentication failures proves the point further that this is indeed a DoS attack.
 
@@ -97,6 +105,8 @@ This attack aims to overwhelm the system resources through various attack vector
 ```
 logtype: ufw AND message: "UFW BLOCK" AND message: "SRC="
 ```
+![image](Evidence/image4.png)
+
 
 ***MITRE Att&ck***
 
@@ -115,6 +125,8 @@ DoS campaigns typically involve multiple attack vectors and service targeting. B
 ```
 logtype: auth AND message: "Invalid user"
 ```
+![image](Evidence/image5.png)
+
 
 This query helps identify user enumeration attempts that may be part of a broader DoS strategy targeting authentication services, particularly systematic attempts to overwhelm SSH and other login services.
 
@@ -135,6 +147,8 @@ To gain a comprehensive understanding of the DoS methodology, analyze the system
 ```
 logtype: ufw AND message: "UFW BLOCK" AND message: "DPT="
 ```
+![image](Evidence/image6.png)
+
 
 By reviewing the destination port information, you can identify the diversity of services targeted during the DoS campaign and assess the attack's scope across different network services.
 
@@ -156,6 +170,8 @@ Identify systematic port scanning activities that are characteristic of DoS reco
 ```
 logtype: ufw AND message: "UFW BLOCK" AND (message: "DPT=21" OR message: "DPT=23" OR message: "DPT=25" OR message: "DPT=80" OR message: "DPT=443" OR message: "DPT=993" OR message: "DPT=995" OR message: "DPT=1433" OR message: "DPT=3389")
 ```
+![image](Evidence/image7.png)
+
 
 This query focuses on common service ports that are frequently targeted during DoS campaigns for service enumeration and attack vector identification.
 
