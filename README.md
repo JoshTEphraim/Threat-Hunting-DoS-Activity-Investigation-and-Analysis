@@ -1,4 +1,4 @@
-# Threat-Hunting-DoS-Activity-Investigation-and-Analysis
+# Threat Hunting: DoS Activity Investigation and Analysis
 
 In this investigation we have a possibility of a Denial of Service attack that has affected an Organization targeting its critical network infrastructure. The security monitoring has detected high-volume of connection attempts, systematic port scanning activities, aggressive authentication brute force attacks and patters indicative of distributed denial of service behavior.
 
